@@ -13,7 +13,7 @@ public class Main {
         InputException inputException = new InputException();
         InputParser inputParser = new InputParser(inputException);
 
-        //Read first line
+        // Read first line
         String[] input = scanner.nextLine().split(",\\s+|,");
 
         // Validate (type of input) and parse first line of input
@@ -22,8 +22,8 @@ public class Main {
         // Validate first line of input for number range
         inputException.validateNumbersFromFirstLine(firstLine);
 
-        int row = firstLine[0];
-        int col = firstLine[1];
+        int col = firstLine[0];
+        int row = firstLine[1];
 
         int[][] matrix = new int[row][col];
         Cell[][] cellMatrix = new Cell[row][col];

@@ -21,8 +21,12 @@ public class InputException extends Exception {
     public void validateNumbersFromFirstLine(int[] input) {
         int current = input[0];
         for (int i : input) {
-            if (i < 1 || i > 1000 || current != i) {
+            if (i < 1 || i > 1000) {
                 System.out.println("Invalid input! Supports only equal numbers in range 1-1000");
+                throw new IllegalArgumentException();
+            }
+            if (current > i){
+                System.out.println("Invalid input! Initial number can not be higher the second");
                 throw new IllegalArgumentException();
             }
             current = i;

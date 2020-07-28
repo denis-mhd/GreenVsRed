@@ -107,6 +107,6 @@ public class Game {
 
     // Validating every position around pointed cell to prevent Out Of Bounds exception
     private boolean validatePosition(int x, int y, Cell[][] matrix) {
-        return !(x < 0 || x >= matrix[0].length || y < 0 || y >= matrix.length);
+        return !(x < 0 || x >= matrix.length || y < 0 || y >= matrix[0].length);
     }
 }
