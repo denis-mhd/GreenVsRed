@@ -1,3 +1,6 @@
+package model;
+
+// Class for given cell coordinates
 public class CellOfInterest {
 
     private int x;

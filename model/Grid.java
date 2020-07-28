@@ -1,4 +1,6 @@
+package model;
 
+//Class for matrix and given cell coordinates
 public class Grid {
 
     private CellOfInterest cellOfInterest;
@@ -22,15 +24,15 @@ public class Grid {
         return matrix;
     }
 
-    public void setMatrix(int[][] nextMatrix) {
-            for (int i = 0; i < nextMatrix.length; i++) {
-                for (int j = 0; j < nextMatrix[0].length; j++) {
-                    if (nextMatrix[i][j] == 0){
-                        this.getMatrix()[i][j].setColor(Color.RED);
-                    }else{
-                        this.getMatrix()[i][j].setColor(Color.GREEN);
-                    }
+    public void setMatrix(int[][] newMatrix) {
+        for (int i = 0; i < newMatrix.length; i++) {
+            for (int j = 0; j < newMatrix[0].length; j++) {
+                if (newMatrix[i][j] == 0) {
+                    this.matrix[i][j].setColor(Color.RED);
+                } else {
+                    this.matrix[i][j].setColor(Color.GREEN);
                 }
             }
+        }
     }
 }

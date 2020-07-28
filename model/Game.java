@@ -1,8 +1,11 @@
-import static constant.Constants.GREEN;
-import static constant.Constants.RED;
+package model;
 
+import static constant.Constant.GREEN;
+import static constant.Constant.RED;
+
+// Class Game follows task actions
 public class Game {
-    public Grid grid;
+    private Grid grid;
 
     public Game(Grid grid) {
         this.grid = grid;
@@ -12,7 +15,8 @@ public class Game {
         System.out.println(this.round(rounds, nextMatrix));
     }
 
-    public int round(int rounds, int[][] nextMatrix) {
+    // Start game for each round
+    private int round(int rounds, int[][] nextMatrix) {
 
         int resultCounter = 0;
         int col = this.grid.getCellOfInterest().getX();
@@ -26,7 +30,6 @@ public class Game {
 
                     int greenCounter = 0;
 
-
                     greenCounter = checkPositionsAroundCells(j, k, greenCounter);
 
                     // Covers rule 1 and 2
@@ -35,7 +38,7 @@ public class Game {
                             nextMatrix[j][k] = 1;
                         }
 
-                    // Covers rule 3 and 4
+                        // Covers rule 3 and 4
                     } else if (this.grid.getMatrix()[j][k].getColor().name().equals(GREEN)) {
                         if (greenCounter != 2 && greenCounter != 3 && greenCounter != 6) {
                             nextMatrix[j][k] = 0;
@@ -47,8 +50,6 @@ public class Game {
                         if (this.grid.getMatrix()[j][k].getColor().name().equals(GREEN)) {
                             resultCounter++;
                         }
-
-
                     }
                 }
 
@@ -61,43 +62,43 @@ public class Game {
 
     //Check positions around each cell and receive count of green cells
     private int checkPositionsAroundCells(int j, int k, int greenCounter) {
-        if (validatePosition(j-1, k,this.grid.getMatrix())){
-            if(this.grid.getMatrix()[j-1][k].getColor().name().equals(GREEN)){
+        if (validatePosition(j - 1, k, this.grid.getMatrix())) {
+            if (this.grid.getMatrix()[j - 1][k].getColor().name().equals(GREEN)) {
                 greenCounter++;
             }
         }
-        if (validatePosition(j-1, k+1,this.grid.getMatrix())){
-            if(this.grid.getMatrix()[j-1][k+1].getColor().name().equals(GREEN)){
+        if (validatePosition(j - 1, k + 1, this.grid.getMatrix())) {
+            if (this.grid.getMatrix()[j - 1][k + 1].getColor().name().equals(GREEN)) {
                 greenCounter++;
             }
         }
-        if (validatePosition(j, k+1,this.grid.getMatrix())){
-            if(this.grid.getMatrix()[j][k+1].getColor().name().equals(GREEN)){
+        if (validatePosition(j, k + 1, this.grid.getMatrix())) {
+            if (this.grid.getMatrix()[j][k + 1].getColor().name().equals(GREEN)) {
                 greenCounter++;
             }
         }
-        if (validatePosition(j+1, k+1,this.grid.getMatrix())){
-            if(this.grid.getMatrix()[j+1][k+1].getColor().name().equals(GREEN)){
+        if (validatePosition(j + 1, k + 1, this.grid.getMatrix())) {
+            if (this.grid.getMatrix()[j + 1][k + 1].getColor().name().equals(GREEN)) {
                 greenCounter++;
             }
         }
-        if (validatePosition(j+1, k,this.grid.getMatrix())){
-            if(this.grid.getMatrix()[j+1][k].getColor().name().equals(GREEN)){
+        if (validatePosition(j + 1, k, this.grid.getMatrix())) {
+            if (this.grid.getMatrix()[j + 1][k].getColor().name().equals(GREEN)) {
                 greenCounter++;
             }
         }
-        if (validatePosition(j+1, k-1,this.grid.getMatrix())){
-            if(this.grid.getMatrix()[j+1][k-1].getColor().name().equals(GREEN)){
+        if (validatePosition(j + 1, k - 1, this.grid.getMatrix())) {
+            if (this.grid.getMatrix()[j + 1][k - 1].getColor().name().equals(GREEN)) {
                 greenCounter++;
             }
         }
-        if (validatePosition(j, k-1,this.grid.getMatrix())){
-            if(this.grid.getMatrix()[j][k-1].getColor().name().equals(GREEN)){
+        if (validatePosition(j, k - 1, this.grid.getMatrix())) {
+            if (this.grid.getMatrix()[j][k - 1].getColor().name().equals(GREEN)) {
                 greenCounter++;
             }
         }
-        if (validatePosition(j-1, k-1,this.grid.getMatrix())){
-            if(this.grid.getMatrix()[j-1][k-1].getColor().name().equals(GREEN)){
+        if (validatePosition(j - 1, k - 1, this.grid.getMatrix())) {
+            if (this.grid.getMatrix()[j - 1][k - 1].getColor().name().equals(GREEN)) {
                 greenCounter++;
             }
         }
@@ -105,7 +106,7 @@ public class Game {
     }
 
     // Validating every position around pointed cell to prevent Out Of Bounds exception
-    public boolean validatePosition(int x, int y, Cell[][] matrix){
-        return !(x<0 || x>= matrix[0].length || y<0 || y>=matrix.length);
+    private boolean validatePosition(int x, int y, Cell[][] matrix) {
+        return !(x < 0 || x >= matrix[0].length || y < 0 || y >= matrix.length);
     }
 }

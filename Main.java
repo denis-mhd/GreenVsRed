@@ -1,4 +1,8 @@
-import java.io.IOException;
+import exception.InputException;
+import model.Cell;
+import model.CellOfInterest;
+import model.Game;
+import model.Grid;
 import java.util.Scanner;
 
 public class Main {
@@ -6,76 +10,56 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        InputException inputException = new InputException();
+        InputParser inputParser = new InputParser(inputException);
 
+        //Read first line
         String[] input = scanner.nextLine().split(",\\s+|,");
 
-        int row = 0;
-        int col = 0;
+        // Validate and parse first line of input for input type!
+        int[] firstLine = inputParser.integerParser(input);
 
-        // Validating first line of input!
-        try {
-            row = Integer.parseInt(input[0]);
-            col = Integer.parseInt(input[1]);
-            if (col < 1 || col > 1000 || row != col){
-                throw new IOException("Wrong input! Numbers should be in range 1-1000.");
-            }
-        }catch (IOException e){
-            System.out.println("Wrong input! Only numbers.");
+        // Validate first line of input for number range!
+        inputException.validateNumbersFromFirstLine(firstLine);
+
+        int row = firstLine[0];
+        int col = firstLine[1];
+
+        int[][] matrix = new int[row][col];
+        Cell[][] cellMatrix = new Cell[row][col];
+        for (int i = 0; i < row; i++) {
+
+            //Read n-lines(rows) forming matrix
+            String[] matrixInput = scanner.nextLine().split("");
+
+            // Validate and parse n-lines of input for input type!
+            int[] currentRow = inputParser.integerParser(matrixInput);
+            Cell[] currentCellMatrixRow = inputParser.cellRowParser(matrixInput);
+
+            // Validate n-lines of input for number range!
+            inputException.validateNumbersForFillingMatrix(currentRow);
+            matrix[i] = currentRow;
+            cellMatrix[i] = currentCellMatrixRow;
         }
 
-        // Validating next (n = cellRow) lines of input and filling the matrix
-        Cell[][] matrix = new Cell[row][col];
-        int[][] nextMatrix = new int[row][col];
-        try {
-            for (int i = 0; i < col; i++) {
-                String[] matrixInput = scanner.nextLine().split("");
-                for (int j = 0; j < matrixInput.length; j++) {
-                    if (matrixInput[j].equals("0")) {
-                        nextMatrix[i][j] = 0;
-                        Cell red = new Cell(Color.RED);
-                        matrix[i][j] = red;
-                    } else if (matrixInput[j].equals("1")) {
-                        nextMatrix[i][j] = 1;
-                        Cell green = new Cell(Color.GREEN);
-                        matrix[i][j] = green;
-                    } else {
-                        throw new IOException("Wrong input! Supports only 0 and 1.");
-                    }
-                }
-            }
-        }catch (IOException e){
-            System.out.println("Wrong input! Supports only 0 and 1.");
-        }
-
-
-        //Validating last input line
+        //Read last line
         String[] coordinatesAndRounds = scanner.nextLine().split(",\\s+|,");
-        int rounds = 0;
-        int x = 0;
-        int y = 0;
 
-        try{
-            x = Integer.parseInt(coordinatesAndRounds[0]);
-            y = Integer.parseInt(coordinatesAndRounds[1]);
-            rounds = Integer.parseInt(coordinatesAndRounds[2]);
+        //Validate and parse last line of input
+        int[] lastLine = inputParser.integerParser(coordinatesAndRounds);
+        int x = lastLine[0];
+        int y = lastLine[1];
+        int rounds = lastLine[2];
 
-            if(x<0 || x>row || y<0 || y>col || rounds<0){
-                throw new IllegalArgumentException("Wrong input! Must be positive numbers and less than size of grid.");
-            }
+        //Validate last line numbers
+        inputException.validateNumbersLastInputLine(x, y, rounds, row, col);
 
-        }catch (IllegalArgumentException e){
-            System.out.println("Wrong input! Must be positive numbers");
-        }
-
-        CellOfInterest point = new CellOfInterest(x,y);
-
-        Grid grid = new Grid(point, matrix);
-
+        CellOfInterest point = new CellOfInterest(x, y);
+        Grid grid = new Grid(point, cellMatrix);
         Game game = new Game(grid);
 
-        game.run(rounds, nextMatrix);
-
-
+        game.run(rounds, matrix);
 
     }
 }
+

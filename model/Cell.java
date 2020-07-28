@@ -1,3 +1,6 @@
+package model;
+
+// Class Cell keeps color of cell
 public class Cell {
     private Color color;
 
