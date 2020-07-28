@@ -2,7 +2,7 @@ import exception.InputException;
 import model.Cell;
 import model.Color;
 
-// Class used to parse input
+// Class to parse the input
 public class InputParser {
     private final InputException inputException;
 

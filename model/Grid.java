@@ -1,6 +1,6 @@
 package model;
 
-//Class for matrix and given cell coordinates
+// Class for matrix and given cell coordinates
 public class Grid {
 
     private CellOfInterest cellOfInterest;
